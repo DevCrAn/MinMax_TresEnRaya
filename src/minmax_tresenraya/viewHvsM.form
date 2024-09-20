@@ -4,6 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Tres en Raya HvsM"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -182,10 +183,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btn00" alignment="3" pref="100" max="32767" attributes="0"/>
-                          <Component id="btn02" alignment="0" pref="100" max="32767" attributes="0"/>
-                          <Component id="btn01" alignment="1" pref="100" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btn02" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn01" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btn00" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -221,7 +222,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btn10" alignment="0" pref="100" max="32767" attributes="0"/>
                           <Component id="btn12" alignment="0" pref="100" max="32767" attributes="0"/>
                           <Component id="btn11" alignment="0" pref="100" max="32767" attributes="0"/>
@@ -260,7 +261,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btn20" alignment="1" pref="100" max="32767" attributes="0"/>
                           <Component id="btn22" alignment="0" pref="100" max="32767" attributes="0"/>
                           <Component id="btn21" alignment="0" pref="100" max="32767" attributes="0"/>

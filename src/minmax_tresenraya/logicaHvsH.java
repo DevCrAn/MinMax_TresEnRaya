@@ -38,7 +38,6 @@ public class logicaHvsH implements ActionListener {
     this.txtbtn8 = ventanaHH.txtbtn8;
     this.txtbtn9 = ventanaHH.txtbtn9;
 
-    // Asociar los botones a ActionListener
     txtbtn1.addActionListener(this);
     txtbtn2.addActionListener(this);
     txtbtn3.addActionListener(this);

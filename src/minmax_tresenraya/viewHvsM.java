@@ -15,14 +15,14 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
     private JButton[][] botonesTablero = new JButton[3][3]; 
     private int[][] tablero = new int[3][3]; 
 
-    private static final int JUGADOR = -1; // Representa al jugador ("X")
-    private static final int COMPUTADORA = 1; // Representa a la computadora ("O")
-    private static final int VACIO = 0; // Representa una casilla vacía en el tablero
+    private static final int JUGADOR = -1; //Representa al jugador ("X")
+    private static final int COMPUTADORA = 1; //Representa a la computadora ("O")
+    private static final int VACIO = 0; //Representa una casilla vacía en el tablero
 
     public viewHvsM() {
         initComponents();
         inicializarBotones();
-        realizarMovimientoComputadora(); // La computadora realiza el primer movimiento automáticamente
+        realizarMovimientoComputadora(); 
     }
 
     private void inicializarBotones() {
@@ -36,16 +36,15 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         botonesTablero[2][1] = btn21;
         botonesTablero[2][2] = btn22;
 
-        // Asignar eventos de click a cada botón
+        //Asigna eventos de click a cada botón
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                botonesTablero[i][j].setFont(new Font("Arial", Font.PLAIN, 24)); // Tamaño de fuente
+                botonesTablero[i][j].setFont(new Font("Arial", Font.PLAIN, 24)); 
                 botonesTablero[i][j].addActionListener((ActionListener) this); // Añadir listener para gestionar clicks
             }
         }
     }
 
-    // Método que realiza el movimiento de la computadora usando el algoritmo MINIMAX
     private void realizarMovimientoComputadora() {
         int[] mejorMovimiento = encontrarMejorMovimiento(); // Encuentra la mejor jugada usando MINIMAX
         tablero[mejorMovimiento[0]][mejorMovimiento[1]] = COMPUTADORA; // Realiza la jugada
@@ -61,7 +60,7 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tablero[i][j] == VACIO) { // Si la casilla está vacía
-                    tablero[i][j] = COMPUTADORA; // Simulamos el movimiento de la computadora
+                    tablero[i][j] = COMPUTADORA; 
                     int puntaje = minimax(tablero, 0, false); // Calculamos el puntaje del movimiento
                     tablero[i][j] = VACIO; // Restauramos la casilla a vacía
 
@@ -81,12 +80,12 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
     private int minimax(int[][] tablero, int profundidad, boolean esMaximizando) {
         int puntaje = evaluarTablero(tablero); // Evaluamos si alguien ha ganado
 
-        // Si la computadora gana, devolvemos un puntaje alto, si pierde uno bajo
+        //Si la computadora gana, devolvemos un puntaje alto, si pierde uno bajo
         if (puntaje == 10 || puntaje == -10) {
             return puntaje;
         }
 
-        // Si no hay más movimientos disponibles, es un empate
+        //empate es un empate
         if (!hayMovimientosDisponibles(tablero)) {
             return 0;
         }
