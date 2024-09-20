@@ -1,6 +1,7 @@
 package minmax_tresenraya;
 
 import com.jtattoo.plaf.mcwin.McWinLookAndFeel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -123,7 +124,24 @@ public class gameMode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHvsMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHvsMActionPerformed
-        viewHvsM windowHvsM = new viewHvsM();
+        // Pregunta quién debe iniciar el juego
+        Object[] options = {"Humano", "Computadora"};
+        int respuesta = JOptionPane.showOptionDialog(this,
+                "¿Quién debe comenzar el juego?",
+                "Seleccione el Jugador Inicial",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        // Se pasa la decisión de quién comienza a la nueva ventana
+        boolean computadoraInicia = (respuesta == JOptionPane.NO_OPTION);
+        viewHvsM windowHvsM = new viewHvsM(computadoraInicia);
+
+        if (computadoraInicia) {
+            JOptionPane.showMessageDialog(null, "Inicia la computadora con 0");
+        }
 
         windowHvsM.setVisible(true);
         windowHvsM.setLocationRelativeTo(null);

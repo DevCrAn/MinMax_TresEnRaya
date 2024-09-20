@@ -11,18 +11,27 @@ import javax.swing.JOptionPane;
  * @author DevCrAn
  */
 public class viewHvsM extends javax.swing.JFrame implements ActionListener {
+
     private logicaHvsM logica = new logicaHvsM();
-    private JButton[][] botonesTablero = new JButton[3][3]; 
-    private int[][] tablero = new int[3][3]; 
+    private JButton[][] botonesTablero = new JButton[3][3];
+    private int[][] tablero = new int[3][3];
 
-    private static final int JUGADOR = -1; //Representa al jugador ("X")
-    private static final int COMPUTADORA = 1; //Representa a la computadora ("O")
-    private static final int VACIO = 0; //Representa una casilla vacía en el tablero
+    private static final int JUGADOR = -1; // Representa al jugador ("X")
+    private static final int COMPUTADORA = 1; // Representa a la computadora ("O")
+    private static final int VACIO = 0; // Representa una casilla vacía en el tablero
 
-    public viewHvsM() {
+    // Variable para saber quién inició el juego
+    private boolean computadoraInicia = false;
+
+    public viewHvsM(boolean computadoraInicia) {
         initComponents();
+        this.computadoraInicia = computadoraInicia;
         inicializarBotones();
-        realizarMovimientoComputadora(); 
+
+        // Si la computadora fue seleccionada para iniciar, realiza su primer movimiento
+        if (computadoraInicia) {
+            realizarMovimientoComputadora();
+        }
     }
 
     private void inicializarBotones() {
@@ -39,13 +48,13 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         //Asigna eventos de click a cada botón
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                botonesTablero[i][j].setFont(new Font("Arial", Font.PLAIN, 24)); 
+                botonesTablero[i][j].setFont(new Font("Arial", Font.PLAIN, 24));
                 botonesTablero[i][j].addActionListener((ActionListener) this); // Añadir listener para gestionar clicks
             }
         }
     }
 
-    private void realizarMovimientoComputadora() {
+    public void realizarMovimientoComputadora() {
         int[] mejorMovimiento = encontrarMejorMovimiento(); // Encuentra la mejor jugada usando MINIMAX
         tablero[mejorMovimiento[0]][mejorMovimiento[1]] = COMPUTADORA; // Realiza la jugada
         botonesTablero[mejorMovimiento[0]][mejorMovimiento[1]].setText("O"); // Muestra la "O" en la casilla
@@ -60,7 +69,7 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tablero[i][j] == VACIO) { // Si la casilla está vacía
-                    tablero[i][j] = COMPUTADORA; 
+                    tablero[i][j] = COMPUTADORA;
                     int puntaje = minimax(tablero, 0, false); // Calculamos el puntaje del movimiento
                     tablero[i][j] = VACIO; // Restauramos la casilla a vacía
 
@@ -194,7 +203,11 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
                 botonesTablero[i][j].setText("");
             }
         }
-        realizarMovimientoComputadora(); // La computadora comienza de nuevo
+
+        // Si la computadora comenzó en la partida anterior, vuelve a hacer su movimiento inicial
+        if (computadoraInicia) {
+            realizarMovimientoComputadora();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -216,7 +229,6 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         }
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -424,7 +436,6 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         windowgameMode.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_returnMenuActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
