@@ -27,6 +27,7 @@ public class gameMode extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modo de Juego - Tres en Raya");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Palatino Linotype", 1, 14)); // NOI18N
         jLabel1.setText("Seleccione el modo de juego");
