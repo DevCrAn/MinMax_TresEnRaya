@@ -49,6 +49,11 @@ public class gameMode extends javax.swing.JFrame {
         );
 
         btnHvsH.setText("Humano vs Humano");
+        btnHvsH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHvsHActionPerformed(evt);
+            }
+        });
 
         btnHvsM.setText("Humano vs Máquina");
         btnHvsM.addActionListener(new java.awt.event.ActionListener() {
@@ -117,12 +122,20 @@ public class gameMode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHvsMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHvsMActionPerformed
-        viewHvsM newWindow = new viewHvsM();
+        viewHvsM windowHvsM = new viewHvsM();
 
-        newWindow.setVisible(true);
-        newWindow.setLocationRelativeTo(null);
+        windowHvsM.setVisible(true);
+        windowHvsM.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnHvsMActionPerformed
+
+    private void btnHvsHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHvsHActionPerformed
+        viewHvsH windowHvsH = new viewHvsH();
+        windowHvsH.setVisible(true);
+        windowHvsH.setLocationRelativeTo(null);
+        this.dispose();
+        new logicaHvsH(windowHvsH);
+    }//GEN-LAST:event_btnHvsHActionPerformed
 
     /**
      * @param args the command line arguments
