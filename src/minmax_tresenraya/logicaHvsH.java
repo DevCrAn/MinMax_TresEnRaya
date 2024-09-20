@@ -21,11 +21,11 @@ public class logicaHvsH implements ActionListener {
     private javax.swing.JButton txtbtn9;
     private viewHvsH ventanaHH = new  viewHvsH();
 
-    private String turno = "X";  // El primer turno comenzara con X
+    private String turno = "X"; 
     private boolean juegoTerminado = false;
 
     public logicaHvsH(viewHvsH ventanaHH) {
-    this.ventanaHH = ventanaHH;  // Usa la ventana que ya existe
+    this.ventanaHH = ventanaHH;  
     this.btnRestaurar = ventanaHH.btnRestaurar;
     this.btnSalir = ventanaHH.btnSalir;
     this.txtbtn1 = ventanaHH.txtbtn1;
@@ -54,11 +54,10 @@ public class logicaHvsH implements ActionListener {
 
 
     private void cambiarTurno() {
-        turno = turno.equals("X") ? "O" : "X";  // Alternar entre X y O
+        turno = turno.equals("X") ? "O" : "X";
     }
 
     private void verificarEstado() {
-        // Comprobar si hay un ganador o si es empate
         if (hayGanador()) {
             juegoTerminado = true;
             JOptionPane.showMessageDialog(ventanaHH, "¡El jugador " + (turno.equals("X") ? "O" : "X") + " ha ganado!");
@@ -96,14 +95,15 @@ public class logicaHvsH implements ActionListener {
     }
 
     private boolean esEmpate() {
-        // Verificar si todas las casillas están llenas y no hay un ganador
+        //Verifica si todas las casillas están llenas y no hay un ganador
         return !txtbtn1.getText().equals("") && !txtbtn2.getText().equals("") && !txtbtn3.getText().equals("")
                 && !txtbtn4.getText().equals("") && !txtbtn5.getText().equals("") && !txtbtn6.getText().equals("")
                 && !txtbtn7.getText().equals("") && !txtbtn8.getText().equals("") && !txtbtn9.getText().equals("");
     }
 
     private void reiniciarJuego() {
-        // Reiniciar todas las casillas y el estado del juego
+        
+        //Reinicia todas las casillas y el estado del juego
         txtbtn1.setText("");
         txtbtn2.setText("");
         txtbtn3.setText("");
@@ -114,7 +114,6 @@ public class logicaHvsH implements ActionListener {
         txtbtn8.setText("");
         txtbtn9.setText("");
 
-        // Restaurar el color original de los botones
         txtbtn1.setBackground(null);
         txtbtn2.setBackground(null);
         txtbtn3.setBackground(null);
@@ -125,20 +124,18 @@ public class logicaHvsH implements ActionListener {
         txtbtn8.setBackground(null);
         txtbtn9.setBackground(null);
 
-        turno = "X";  // El juego comienza con X
-        juegoTerminado = false;  // Reiniciar el estado del juego
+      
+        juegoTerminado = false;  //Reinicia el estado del juego
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton botonPresionado = (JButton) e.getSource();
 
-        // cerrar el juego
         if (botonPresionado == btnSalir) {
             System.exit(0);
         }
 
-        // reiniciar el juego
         if (botonPresionado == btnRestaurar) {
             reiniciarJuego();
             return;
@@ -150,9 +147,9 @@ public class logicaHvsH implements ActionListener {
         }
 
         if (botonPresionado.getText().equals("")) { //si la casilla está vacía entra
-            botonPresionado.setText(turno);  // Asignar el turno actual a la casilla X o O
-            cambiarTurno();  // Alternar el turno
-            verificarEstado();  // Comprobar si alguien ha ganado o si es empate
+            botonPresionado.setText(turno);  
+            cambiarTurno(); 
+            verificarEstado();  
         }
     }
 }
