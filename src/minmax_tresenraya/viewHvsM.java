@@ -13,12 +13,15 @@ import javax.swing.JOptionPane;
 public class viewHvsM extends javax.swing.JFrame implements ActionListener {
 
     private logicaHvsM logica = new logicaHvsM();
-    private JButton[][] botonesTablero = new JButton[3][3];
-    private int[][] tablero = new int[3][3];
+    private JButton[][] botonesTablero = new JButton[3][3]; 
+    private int[][] tablero = new int[3][3]; 
 
     private static final int JUGADOR = -1; // Representa al jugador ("X")
     private static final int COMPUTADORA = 1; // Representa a la computadora ("O")
     private static final int VACIO = 0; // Representa una casilla vacía en el tablero
+    
+    // Variable para contar los estados recorridos
+    private int contadorEstados;
 
     // Variable para saber quién inició el juego
     private boolean computadoraInicia = false;
@@ -54,26 +57,30 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         }
     }
 
-    public void realizarMovimientoComputadora() {
+      public void realizarMovimientoComputadora() {
+        // Reinicia el contador de estados antes de cada jugada de la computadora
+        contadorEstados = 0;
+
         int[] mejorMovimiento = encontrarMejorMovimiento(); // Encuentra la mejor jugada usando MINIMAX
-        tablero[mejorMovimiento[0]][mejorMovimiento[1]] = COMPUTADORA; // Realiza la jugada
-        botonesTablero[mejorMovimiento[0]][mejorMovimiento[1]].setText("O"); // Muestra la "O" en la casilla
+        tablero[mejorMovimiento[0]][mejorMovimiento[1]] = COMPUTADORA;
+        botonesTablero[mejorMovimiento[0]][mejorMovimiento[1]].setText("O");
+
+        // Muestra el número de estados recorridos por Minimax
+        JOptionPane.showMessageDialog(this, "Minimax recorrió " + contadorEstados + " estados.");
     }
 
     // Método que utiliza el algoritmo MINIMAX para encontrar la mejor jugada posible para la computadora
     private int[] encontrarMejorMovimiento() {
-        int mejorPuntaje = Integer.MIN_VALUE; // Inicializamos el mejor puntaje muy bajo
-        int[] mejorMovimiento = new int[]{-1, -1}; // Inicializamos el mejor movimiento como no válido
+        int mejorPuntaje = Integer.MIN_VALUE;
+        int[] mejorMovimiento = new int[]{-1, -1};
 
-        // Recorremos todas las casillas del tablero
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (tablero[i][j] == VACIO) { // Si la casilla está vacía
+                if (tablero[i][j] == VACIO) {
                     tablero[i][j] = COMPUTADORA;
-                    int puntaje = minimax(tablero, 0, false); // Calculamos el puntaje del movimiento
-                    tablero[i][j] = VACIO; // Restauramos la casilla a vacía
+                    int puntaje = minimax(tablero, 0, false);
+                    tablero[i][j] = VACIO;
 
-                    // Si el puntaje de este movimiento es mejor que el anterior, lo guardamos
                     if (puntaje > mejorPuntaje) {
                         mejorPuntaje = puntaje;
                         mejorMovimiento[0] = i;
@@ -82,48 +89,48 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
                 }
             }
         }
-        return mejorMovimiento; // Devolvemos el mejor movimiento encontrado
+        return mejorMovimiento;
     }
 
     // Algoritmo MINIMAX para evaluar todas las posibles jugadas
-    private int minimax(int[][] tablero, int profundidad, boolean esMaximizando) {
-        int puntaje = evaluarTablero(tablero); // Evaluamos si alguien ha ganado
+   private int minimax(int[][] tablero, int profundidad, boolean esMaximizando) {
+        // Incrementa el contador cada vez que se recorre un nuevo estado
+        contadorEstados++;
 
-        //Si la computadora gana, devolvemos un puntaje alto, si pierde uno bajo
+        int puntaje = evaluarTablero(tablero);
+
         if (puntaje == 10 || puntaje == -10) {
             return puntaje;
         }
 
-        //empate es un empate
         if (!hayMovimientosDisponibles(tablero)) {
             return 0;
         }
 
-        // Si es el turno de la computadora (maximizador)
         if (esMaximizando) {
-            int mejorPuntaje = Integer.MIN_VALUE; // Buscamos maximizar el puntaje
+            int mejorPuntaje = Integer.MIN_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (tablero[i][j] == VACIO) { // Simulamos jugada
+                    if (tablero[i][j] == VACIO) {
                         tablero[i][j] = COMPUTADORA;
                         mejorPuntaje = Math.max(mejorPuntaje, minimax(tablero, profundidad + 1, false));
-                        tablero[i][j] = VACIO; // Restauramos el tablero
+                        tablero[i][j] = VACIO;
                     }
                 }
             }
-            return mejorPuntaje; // Devolvemos el mejor puntaje encontrado
-        } else { // Si es el turno del jugador (minimizador)
-            int mejorPuntaje = Integer.MAX_VALUE; // Buscamos minimizar el puntaje
+            return mejorPuntaje;
+        } else {
+            int mejorPuntaje = Integer.MAX_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (tablero[i][j] == VACIO) { // Simulamos jugada
+                    if (tablero[i][j] == VACIO) {
                         tablero[i][j] = JUGADOR;
                         mejorPuntaje = Math.min(mejorPuntaje, minimax(tablero, profundidad + 1, true));
-                        tablero[i][j] = VACIO; // Restauramos el tablero
+                        tablero[i][j] = VACIO;
                     }
                 }
             }
-            return mejorPuntaje; // Devolvemos el mejor puntaje encontrado
+            return mejorPuntaje;
         }
     }
 
