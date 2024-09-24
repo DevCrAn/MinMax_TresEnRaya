@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
  */
 public class viewHvsM extends javax.swing.JFrame implements ActionListener {
 
-    private logicaHvsM logica = new logicaHvsM();
     private JButton[][] botonesTablero = new JButton[3][3]; 
     private int[][] tablero = new int[3][3]; 
 
@@ -65,7 +64,6 @@ public class viewHvsM extends javax.swing.JFrame implements ActionListener {
         tablero[mejorMovimiento[0]][mejorMovimiento[1]] = COMPUTADORA;
         botonesTablero[mejorMovimiento[0]][mejorMovimiento[1]].setText("O");
 
-        // Muestra el número de estados recorridos por Minimax
         JOptionPane.showMessageDialog(this, "Minimax recorrió " + contadorEstados + " estados.");
     }
 
